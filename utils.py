@@ -11,6 +11,7 @@ comments_link = str(SYSTEM_SCRIPT_DIR)+'/data/comments.json'
 
 def get_posts_all(file_link):
     """– возвращает посты (список словарей)"""
+
     with open(file_link, 'r', encoding='utf-8') as json_file:
         posts_list = json.load(json_file)
         return posts_list  # фактически это список словарей из прочтенного json файла
