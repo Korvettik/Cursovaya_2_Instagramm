@@ -36,6 +36,19 @@ def get_posts_by_user(user_name):
     return user_posts  # это список словарей
 
 
+
+def get_posts_by_tag(tag):
+    """– возвращает посты c определенным ТЕГОМ"""
+    if type(tag) not in [str]:
+        raise TypeError('Тег должнен быть строкой')
+    posts_list = get_posts_all(post_link)  # получим список всех словарей-постов
+    tag_posts = []  # пустой список постов
+    for post in posts_list:
+        if post['tag'] == tag:
+            tag_posts.append(post)
+    return tag_posts  # это список словарей
+
+
 def get_comments_by_post_id(post_id):
     """– возвращает комментарии определенного поста"""
     if str(post_id).isalpha():
