@@ -5,18 +5,18 @@ from utils import get_posts_all, get_comments_all, get_posts_by_user, get_commen
 from json import JSONDecodeError  #только чтобы видеть эту ошибку при перехвате
 
 SYSTEM_SCRIPT_DIR = os.path.abspath(os.path.dirname(__file__)) # получаем абсолютный путь к директории исполняемого файла
-post_link = str(SYSTEM_SCRIPT_DIR)+"/../data/posts.json"  # формируем новый путь к файлу
-comments_link = str(SYSTEM_SCRIPT_DIR)+"/../data/comments.json"  # формируем новый путь к файлу
+test_post_link = str(SYSTEM_SCRIPT_DIR)+"/../tests/test_posts.json"  # формируем новый путь к тестовому кривому JSON файлу
+test_comments_link = str(SYSTEM_SCRIPT_DIR)+"/../tests/test_comments.json"  # формируем новый путь к тестовому кривому JSON файлу
 
-# НЕ ЗНАЮ КАК ТУТ СДЕЛАТЬ ИНВЕРСИЮ
+# поднимается ошибка на заранее кривом (пустом) файле
 def test_get_posts_all_JSONDecodeError():
     with pytest.raises(JSONDecodeError):
-        get_posts_all(post_link)
+        get_posts_all(test_post_link)
 
-# НЕ ЗНАЮ КАК ТУТ СДЕЛАТЬ ИНВЕРСИЮ
+# поднимается ошибка на заранее кривом (пустом) файле
 def test_get_comments_all_JSONDecodeError():
     with pytest.raises(JSONDecodeError):
-        get_comments_all(comments_link)
+        get_comments_all(test_comments_link)
 
 
 

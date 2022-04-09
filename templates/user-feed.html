@@ -41,7 +41,7 @@
         <a href="/post/{{user_post['pk']}}" class="item__post-link">
           <img src={{user_post['pic']}} alt="" width="348" class="item__post-img">
         </a>
-        <p class="item__descr"><a href="#" class="item__tag">#food</a> {{user_post['content']}}</p>
+        <p class="item__descr"><a href="/tag/{{user_post['tag']}}" class="item__tag">#{{user_post['tag']}}</a> {{user_post['content']}}</p>
         <div class="item__post-info">
           <div class="item__counter">
             <img src="/static/img/eye.png" alt="" class="item__counter-icon" width="26">
@@ -50,67 +50,22 @@
         </div>
         <div class="item__post-bottom">
           <a href="/post/{{user_post['pk']}}" class="item__btn-more">Подробнее</a>
-          <button type="button" class="item__bookmark-btn">
-            <img src="/static/img/bookmark.png" alt="" class="item__bookmark-icon" width="24">
-          </button>
+
+
+<!--          <button type="button" class="item__bookmark-btn">-->
+<!--            <img src="/static/img/bookmark.png" alt="" class="item__bookmark-icon" width="24">-->
+<!--          </button>-->
+
+          <a href="/bookmarks_add_del/{{user_post['pk']}}/">
+            <button type="button" class="item__bookmark-btn">
+              <img src="/static/img/bookmark.png" alt="" class="item__bookmark-icon" width="24">
+            </button>
+          </a>
+
+
         </div>
       </div>
     {% endfor %}
-
-<!--      <div class="items__item item">-->
-<!--        <div class="item__top">-->
-<!--          <a href="/user-feed.html" class="item__head">-->
-<!--            <div class="item__ava-wrap">-->
-<!--              <img src="img/ava2.png" alt="" class="item__ava" width="47">-->
-<!--            </div>-->
-<!--            <span class="item__username">Username</span>-->
-<!--          </a>-->
-<!--        </div>-->
-<!--        <a href="/post.html" class="item__post-link">-->
-<!--          <img src="img/post6.jpg" alt="" width="348" class="item__post-img">-->
-<!--        </a>-->
-<!--        <p class="item__descr"><a href="#" class="item__tag">#food</a> Текст описания коротки...</p>-->
-<!--        <div class="item__post-info">-->
-<!--          <div class="item__counter">-->
-<!--            <img src="img/eye.png" alt="" class="item__counter-icon" width="26">-->
-<!--            <span class="item__counter-text">1023</span>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="item__post-bottom">-->
-<!--          <a href="/post.html" class="item__btn-more">Подробнее</a>-->
-<!--          <button type="button" class="item__bookmark-btn active">-->
-<!--            <img src="img/bookmark.png" alt="" class="item__bookmark-icon" width="24">-->
-<!--          </button>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      -->
-<!--      <div class="items__item item">-->
-<!--        <div class="item__top">-->
-<!--          <a href="user-feed.html" class="item__head">-->
-<!--            <div class="item__ava-wrap">-->
-<!--              <img src="img/ava2.png" alt="" class="item__ava" width="47">-->
-<!--            </div>-->
-<!--            <span class="item__username">Username</span>-->
-<!--          </a>-->
-<!--        </div>-->
-<!--        <a href="/post.html" class="item__post-link">-->
-<!--          <img src="img/post7.jpg" alt="" width="348" class="item__post-img">-->
-<!--        </a>-->
-<!--        <p class="item__descr"><a href="#" class="item__tag">#food</a> Текст описания коротки...</p>-->
-<!--        <div class="item__post-info">-->
-<!--          <div class="item__counter">-->
-<!--            <img src="img/eye.png" alt="" class="item__counter-icon" width="26">-->
-<!--            <span class="item__counter-text">1023</span>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="item__post-bottom">-->
-<!--          <a href="/post.html" class="item__btn-more">Подробнее</a>-->
-<!--          <button type="button" class="item__bookmark-btn">-->
-<!--            <img src="img/bookmark.png" alt="" class="item__bookmark-icon" width="24">-->
-<!--          </button>-->
-<!--        </div>-->
-<!--      </div>-->
-
 
     </section>
   </main>
