@@ -8,12 +8,10 @@ import os
 SYSTEM_SCRIPT_DIR = os.path.abspath(os.path.dirname(__file__))
 file_link = str(SYSTEM_SCRIPT_DIR) + "/../data/posts.json"
 
-# создаем экземпляр класса блупринт(эскиза)
+
 tags = Blueprint('tags', __name__, template_folder='templates', static_folder='static')
 bookmarks = Blueprint('bookmarks', __name__, template_folder='templates', static_folder='static')
 bookmarks_add_del = Blueprint('bookmarks_add_del', __name__, template_folder='templates', static_folder='static')
-
-# bookmarks_add_del.config['JSON_AS_ASCII'] = False
 
 
 @tags.route('/', methods=['GET', 'POST'])  # Шаг *1 – Реализуйте переход по тегам
@@ -24,47 +22,39 @@ def posts_tag(tag):
                            tag=tag)
 
 
-# ПРОВЕРИТЬ ЧТО ТОЧНО ВСЕ РАБОТАЕТ
+# СТРАННО РАБОТАЕТ
 @bookmarks_add_del.route('/', methods=['GET', 'POST'])  # Шаг 2 – добавление или удаление посты в закладки.
-def bookmarks_add_and_del(postid):
-    postid = int(postid)
+def bookmarks_add_and_del(post_id):
+    post_id = int(post_id)
     bookmarks_list = posts_bookmarks()  # получаем список словарей - постов bookmarks
     #формируем список индексов постов файла bookmarks.json
     bookmarks_pk_list = []
     for bookmarks_pk in bookmarks_list:
         bookmarks_pk_list.append(bookmarks_pk['pk'])
         print("[DEBUG]" + "glow-0")
-
     posts_all = get_posts_all(file_link)  # получаем список вообще всех постов
     # формируем список индексов постов  posts.json
     posts_pk_list = []
     for posts_pk in posts_all:
         posts_pk_list.append(posts_pk['pk'])
         print("[DEBUG]" + "glow-1")
-
-    if postid in bookmarks_pk_list:  # удаление поста
+    if post_id in bookmarks_pk_list:  # удаление поста
         for post in bookmarks_list:
-            if post['pk'] == postid:
+            if post['pk'] == post_id:
                 bookmarks_list.remove(post)
                 print("[DEBUG]" + "glow-2")
                 print(f"[DEBUG] bookmarks_pk_list after remove: {bookmarks_pk_list}")
-
     else:    #добавление поста
         for post in posts_all:
-            if post['pk'] == postid:
+            if post['pk'] == post_id:
                 bookmarks_list.append(post)
                 print("[DEBUG]" + "glow-3")
-
     with open('./tags_bookmarks/bookmarks.json', 'w',
-              encoding='utf-8') as json_file:  # открытие на запись нового json файла
-        json.dump(bookmarks_list, json_file, indent=3, ensure_ascii=False)  # кракозябры для кириллицы выключены, гоним текст как есть
+              encoding='utf-8') as json_file:
+        json.dump(bookmarks_list, json_file, indent=3, ensure_ascii=False)
         print("[DEBUG]" + "glow-4")
-
     print('bookmarks_add_del сработала')
     return redirect("/", code=302)
-
-
-
 
 
 def posts_bookmarks():
@@ -73,7 +63,6 @@ def posts_bookmarks():
         bookmarks_list = json.load(json_file)
         print("[DEBUG]"+"glow-5")
         return bookmarks_list
-
 
 
 bookmarks_list = posts_bookmarks()

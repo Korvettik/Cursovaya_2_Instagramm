@@ -18,20 +18,20 @@ app.config['JSON_AS_ASCII'] = False  # чтобы JSON правильно код
 
 
 
+
 # ЗАДАНИЕ СО ЗВЕЗДОЧКОЙ
 app.register_blueprint(tags, url_prefix='/tag/<tag>')  # Шаг *1 – Реализуйте переход по тегам
 app.register_blueprint(bookmarks, url_prefix='/bookmarks')  # просмотр закладок
-app.register_blueprint(bookmarks_add_del, url_prefix='/bookmarks_add_del/<postid>') # Шаг *2 – добавление или удаление посты в закладки.
+app.register_blueprint(bookmarks_add_del, url_prefix='/bookmarks_add_del/<post_id>') # Шаг *2 – добавление или удаление посты в закладки.
 
 
 
 
 
 # ОСНОВНОЕ ЗАДАНИЕ
-
 @app.route('/', methods=['GET', 'POST'])  # главная страница, выводящая список всех постов (шаблон post.html)
 def all_posts_page():
-    posts_list = get_posts_all(post_link)  # функция возвращает список словарей всех постов
+    posts_list = get_posts_all(post_link)
     logging.info('главная страница, index.html, функция возвращает список словарей всех постов')
     return render_template('index.html',
                            posts_list=posts_list,
@@ -47,12 +47,12 @@ def user_feed(username):
                            username=username)
 
 
-@app.route('/post/<postid>', methods=['GET', 'POST'])  # Шаг 2 – реализуйте просмотр поста
-def post_id(postid):
-    post = get_post_by_pk(postid)
-    comments = get_comments_by_post_id(postid)
+@app.route('/post/<post_id>', methods=['GET', 'POST'])  # Шаг 2 – реализуйте просмотр поста
+def post_id(post_id):
+    post = get_post_by_pk(post_id)
+    comments = get_comments_by_post_id(post_id)
     comments_count = len(comments)
-    logging.info(f'вывод конкретного поста по его {postid}, post.html')
+    logging.info(f'вывод конкретного поста по его {post_id}, post.html')
     return render_template('post.html',
                            post=post,
                            comments=comments,
@@ -61,7 +61,7 @@ def post_id(postid):
 
 @app.route('/search/', methods=['GET', 'POST'])  # Шаг 3 – реализуйте поиск
 def post_text_search():
-    s = request.args.get('s')  # получение аргумента 's'
+    s = request.args.get('s')
     post_search = search_for_posts(s)
     post_search_count = len(post_search)
     logging.info(f'выводим все посты, где встречается "{s}", search.html')
@@ -72,20 +72,17 @@ def post_text_search():
 
 @app.route('/api/posts/', methods=['GET'])  # возвращает полный список постов в виде json списка
 def get_all_posts_json():
-    data = get_posts_all(post_link)  # функция возвращает список словарей всех постов
-    # data = request.json
+    data = get_posts_all(post_link)
     logging.info(f'выводим весь JSON файл с постами')
     return jsonify(data)
 
 
-@app.route('/api/postid/', methods=['GET'])  # возвращает конкретный пост в виде словаря
+@app.route('/api/post_id/', methods=['GET'])  # возвращает конкретный пост в виде словаря
 def get_postid_json():
-    postid = request.args.get('postid')  # получение аргумента 'postid'
-    post = get_post_by_pk(postid)
-    logging.info(f'выводим конкретный пост в виде словаря по его postid "{postid}", search.html')
+    post_id = request.args.get('post_id')
+    post = get_post_by_pk(post_id)
+    logging.info(f'выводим конкретный пост в виде словаря по его post_id "{post_id}", search.html')
     return jsonify(post)
-
-
 
 
 if __name__ == '__main__':
