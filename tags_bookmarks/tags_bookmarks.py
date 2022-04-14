@@ -2,6 +2,7 @@ from flask import Blueprint, render_template
 from werkzeug.utils import redirect
 
 from utils import get_posts_by_tag, get_posts_all
+#from main import all_posts_page
 import json
 import os
 
@@ -54,6 +55,7 @@ def bookmarks_add_and_del(post_id):
         json.dump(bookmarks_list, json_file, indent=3, ensure_ascii=False)
         print("[DEBUG]" + "glow-4")
     print('bookmarks_add_del сработала')
+    #all_posts_page()
     return redirect("/", code=302)
 
 

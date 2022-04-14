@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify
 from utils import get_posts_all, get_posts_by_user, get_comments_by_post_id, search_for_posts, get_post_by_pk
 import os
 import logging
-from tags_bookmarks.tags_bookmarks import tags, bookmarks, count_bookmarks_list, bookmarks_add_del  # импортируем модуль блупринт (и FLASK переменные)
+from tags_bookmarks.tags_bookmarks import tags, bookmarks, count_bookmarks_list, bookmarks_add_del, posts_bookmarks  # импортируем модуль блупринт (и FLASK переменные)
 
 # logging.basicConfig(filename="basic.log")
 
@@ -33,6 +33,10 @@ app.register_blueprint(bookmarks_add_del, url_prefix='/bookmarks_add_del/<post_i
 def all_posts_page():
     posts_list = get_posts_all(post_link)
     logging.info('главная страница, index.html, функция возвращает список словарей всех постов')
+
+    bookmarks_list = posts_bookmarks()
+    count_bookmarks_list = len(bookmarks_list)  # подсчет количества закладок
+
     return render_template('index.html',
                            posts_list=posts_list,
                            count_bookmarks_list=count_bookmarks_list)
